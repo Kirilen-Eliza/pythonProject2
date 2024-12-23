@@ -14,3 +14,11 @@ def mask_account_card(card_number_and_name: Union[str]) -> Union[str]:
     else:
         return f'{str(get_mask_card_number(card_number_and_name[-16:]))} {str(card_number_and_name[0:-16])}'
 
+
+def get_date(date: Union[str]) -> Union[str]:
+    """
+    Функция, которая принимает строку с датой и точным временем и возвращает строку в формате 'ДД.ММ.ГГГГ'
+    :param date:
+    :return:
+    """
+    return f"{date[8:10]}.{date[5:7]}.{date[0:4]}"
