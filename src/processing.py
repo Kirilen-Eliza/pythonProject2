@@ -1,7 +1,7 @@
-from typing import Union
+from typing import Iterable
 
 
-def filter_by_state(transactions: list, state: str = "EXECUTED") -> Union[list]:
+def filter_by_state(transactions: list, state: str = "EXECUTED") -> Iterable[list]:
     """
     Функция принимает список словарей и опционально значение для ключа
     state(по умолчанию 'EXECUTED'). Функция возвращает новый список словарей,
@@ -17,7 +17,7 @@ def filter_by_state(transactions: list, state: str = "EXECUTED") -> Union[list]:
     return new_list
 
 
-def sort_by_date(transactions: list, ascending: bool = True) -> Union[list]:
+def sort_by_date(transactions: list, ascending: bool = True) -> Iterable[list]:
     """
     Функция возвращающая новый список словарей, отсортированный по дате.
     :param transactions:
