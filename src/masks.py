@@ -7,13 +7,15 @@ def get_mask_card_number(card_number: Union[int, str]) -> Union[str]:
     :param card_number:
     :return:
     """
-    card_number_str = str(card_number)
-    first_digits = card_number_str[0:4]
-    second_digits = card_number_str[4:6] + "**"
-    third_digits = "****"
-    recent_figures = card_number_str[12:]
-    return f"{first_digits} {second_digits} {third_digits} {recent_figures}"
 
+    if len(str(card_number)) >= 16:
+        card_number_str = str(card_number)
+        mask_card = card_number_str[0:6] + "*" * 6 + card_number_str[12:]
+        result = " ".join([mask_card[i: i + 4] for i in range(0, len(mask_card), 4)])
+        return result
+    else:
+        raise ValueError('Отсутствует номер карты')
+#print(get_mask_card_number(0))
 
 def get_mask_account(account: Union[int, str]) -> Union[str]:
     """
@@ -21,7 +23,10 @@ def get_mask_account(account: Union[int, str]) -> Union[str]:
     :param account:
     :return:
     """
-    account_str = str(account)
-    first_digits = "**"
-    recent_figures = account_str[16:]
-    return f"{first_digits}{recent_figures}"
+    if len(str(account)) == 20:
+        account_str = str(account)
+        return f"{"**"}{account_str[-4:]}"
+    else:
+        raise ValueError('Длина строки не соответствует номеру счёта')
+
+#print(get_mask_account(700003654108430135874307))
