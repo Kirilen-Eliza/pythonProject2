@@ -13,19 +13,18 @@ def test_get_mask_card_number(card_number, disguised_number):
     assert get_mask_card_number(card_number) == disguised_number
 
 
-def test_get_mask_card_number_wrong_type():
+def test_get_mask_card_number_wrong_value():
     """Функция-тест, проверяет функцию на корректность обработки ошибки,
      когда на входной строке отсутствует номер карты."""
     with pytest.raises(ValueError):
-        get_mask_card_number('0')
-        
+        assert get_mask_card_number(0)
 
 def test_get_mask_account(account):
     """Функция-тест, проверяет корректность маскировки номера счёта."""
     assert get_mask_account(account) == '**4305'
 
 
-def test_get_mask_account_wrong_type():
+def test_get_mask_account_wrong_value():
     """Функция-тест, проверяет функцию на корректность обработки ошибки,
      когда на входной строке номер счёта не соответствует длине."""
     with pytest.raises(ValueError):
