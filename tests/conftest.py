@@ -21,8 +21,9 @@ def incorrect_date():
     return 18.671407
 
 
-@pytest.fixture
-def date_invalid():
-    return "11-03-2024T02:26:18.671407"
+@pytest.fixture(params = ["11-03-2024T02:26:18.671407",
+                                "Восьмое февраля две тысячи двадцать пятого года"])
+def date_invalid(request):
+    return request.param
 
 
