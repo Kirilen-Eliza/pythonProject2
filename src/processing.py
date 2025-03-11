@@ -1,7 +1,7 @@
-from typing import Iterable
+from typing import Union
 
 
-def filter_by_state(transactions: list, state: str = "EXECUTED") -> Iterable[list | str]:
+def filter_by_state(transactions: Union[list], state: Union[str] = "EXECUTED") -> Union[list]:
     """
     Функция принимает список словарей и опционально значение для ключа
     state (по умолчанию 'EXECUTED'). Функция возвращает новый список словарей,
@@ -11,16 +11,13 @@ def filter_by_state(transactions: list, state: str = "EXECUTED") -> Iterable[lis
     :return:
     """
     new_list = []
-    if state in transactions:
-        for transaction in transactions:
-            if transaction.get("state") == state:
-                new_list.append(transaction)
-        return new_list
-    else:
-        raise ValueError('В списке словарей не найден заданный ключ')
+    for transaction in transactions:
+        if transaction.get("state") == state:
+            new_list.append(transaction)
+    return new_list
 
 
-def sort_by_date(transactions: list, ascending: bool = True) -> Iterable[list]:
+def sort_by_date(transactions: Union[list], ascending: Union[bool] = True) -> Union[list]:
     """
     Функция принимает список словарей и необязательный параметр, задающий порядок сортировки
     (по умолчанию — убывание). Возвращающая новый список словарей, отсортированный по дате.
@@ -28,7 +25,7 @@ def sort_by_date(transactions: list, ascending: bool = True) -> Iterable[list]:
     :param ascending:
     :return:
     """
-    for data in transactions:
-        if not isinstance(data['date'], str):
-            raise TypeError('Дата должна быть строкой')
-    return sorted(transactions, key=lambda x: x.get("date"), reverse=ascending)
+    for transaction in transactions:
+        if not isinstance(transaction["date"], str):
+            raise TypeError("Дата должна быть строкой")
+    return sorted(transactions, key=lambda date: date.get("date"), reverse=ascending)
