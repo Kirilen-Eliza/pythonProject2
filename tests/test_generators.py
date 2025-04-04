@@ -1,4 +1,4 @@
-from typing import Dict, List, Union
+from typing import Dict, List
 
 import pytest
 
@@ -102,11 +102,7 @@ def transactions() -> List[Dict]:
         )
     ],
 )
-def test_filter_by_currency_success(
-    transactions: List[Dict[str, Union[str, Dict[str, Dict[str, str]]]]],
-    expected: List[Dict[str, Union[str, Dict[str, Dict[str, str]]]]],
-    currency: str,
-) -> None:
+def test_filter_by_currency_success(transactions: List[Dict], expected: List[Dict], currency: str) -> None:
     """
     Проверка, что функция корректно фильтрует транзакции по валюте.
     """
@@ -138,8 +134,7 @@ def transactions_empty() -> List[Dict]:
 
 
 def test_transaction_descriptions_empty(
-    transactions_empty: List[Dict[str, Union[str, Dict[str, Dict[str, str]]]]]
-) -> None:
+    transactions_empty: List[Dict]) -> None:
     """
     Функция-тест, обрабатывает ошибки, когда описание по ключу не соответствует указанным ожиданиям
     """
@@ -160,8 +155,7 @@ def transaction_expected() -> List[str]:
 
 
 def test_transaction_descriptions_success(
-    transactions: List[Dict[str, Union[str, Dict[str, Dict[str, str]]]]], transaction_expected: List[str]
-) -> None:
+    transactions: List[Dict], transaction_expected: List[str]) -> None:
     """
     Проверка корректного извлечения описаний транзакций.
     """
@@ -212,3 +206,22 @@ def test_card_number_generator_invalid_parameter() -> None:
         list(card_number_generator(0, 5))
     with pytest.raises(ValueError, match="Значение диапазона некорректное."):
         list(card_number_generator(1, 10000000000000000))
+
+
+def test_card_number_generator_stop_iteration() -> None:
+    """
+    Функция-тест, проверяет, что генератор корректно завершает работу.
+    """
+    generator = card_number_generator(1, 5)
+    result = list(generator)
+    expected = [
+        "0000 0000 0000 0001",
+        "0000 0000 0000 0002",
+        "0000 0000 0000 0003",
+        "0000 0000 0000 0004",
+        "0000 0000 0000 0005",
+    ]
+    assert result == expected, "Генератор некорректно завершает работу"
+
+    with pytest.raises(StopIteration):
+        next(generator)
