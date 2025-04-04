@@ -10,7 +10,7 @@ def test_filter_by_currency_empty() -> None:
     Функция-тест, обрабатывает ошибку, когда поданный на вход список, оказывается пустым.
     """
     with pytest.raises(ValueError, match="Список транзакций пуст."):
-        generator = filter_by_currency([], "USD")
+        generator = filter_by_currency([{}], "USD")
         next(generator)
 
 
