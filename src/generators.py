@@ -28,5 +28,10 @@ def transaction_descriptions(transactions: List[Dict]) -> Generator[str, None, N
         yield description
 
 
-
-
+def card_number_generator(start: int, stop: int) -> Generator[str]:
+    """Генератор, который выдает номера банковских карт в формате XXXX XXXX XXXX XXXX."""
+    if start < 1 or stop > 9999999999999999:
+        raise ValueError('Значение диапазона некорректное.')
+    for number in range(start, stop + 1):
+        card_number = f"{number:016}"
+        yield f"{card_number[:4]} {card_number[4:8]} {card_number[8:12]} {card_number[12:]}"
